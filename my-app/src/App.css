@@ -1,0 +1,71 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Quill Toolbar Custom Styles */
+.ql-toolbar {
+  background-color: #1f2937 !important; /* Dark Gray Toolbar */
+  border: 1px solid #374151 !important;
+}
+
+/* Change Toolbar Icon Colors to White */
+.ql-toolbar button svg {
+  fill: white !important; /* Make Icons White */
+}
+
+/* Quill Editor Dark Mode */
+.ql-container {
+  background-color: #111827 !important; /* Dark Background */
+  color: white !important; /* White Text */
+  border: 1px solid #374151 !important;
+}
+
+/* Quill Editor Text & Placeholder */
+.ql-editor {
+  color: white !important; /* White Text */
+}
+.ql-editor::before {
+  color: gray !important; /* Placeholder Text */
+}
+
+/* Fix Image Selection Issue */
+.ql-editor img {
+  max-width: 100% !important; /* Prevent Oversized Images */
+  height: auto !important;
+  border-radius: 8px; /* Rounded Corners */
+}

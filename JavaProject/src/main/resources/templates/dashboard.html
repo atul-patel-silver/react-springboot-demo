@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+</head>
+<body class="bg-gray-50">
+<nav class="bg-white shadow-lg">
+    <div class="container mx-auto px-4 py-4">
+
+        <h1 class="text-3xl font-bold text-indigo-600">Product Dashboard</h1>
+        <div class="text-center text-indigo-600 text-3xl font-bold">
+            <a th:href="@{/logout}">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mx-auto px-4 py-8">
+    <div class="grid gap-8">
+        <div th:each="category : ${productsByCategory}" class="bg-white rounded-xl shadow-md p-6">
+            <div class="flex items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800" th:text="${category.key}">Category Name</h2>
+                <span class="ml-4 px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium"
+                      th:text="${#lists.size(category.value)} + ' Products'">
+                        Products Count
+                    </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div th:each="product : ${category.value}" class="bg-white rounded-lg border border-gray-200 hover:border-indigo-500 transition-all duration-300">
+                    <div class="p-5">
+                        <!-- Display Product Image -->
+                        <div class="mb-4">
+                            <img th:src="@{${product.imageUrl}}" alt="Product Image" class="w-full h-64 object-cover rounded-lg">
+                        </div>
+
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800" th:text="${product.name}">Product Name</h3>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium"
+                                  th:text="'$' + ${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">
+                    Price
+                </span>
+                        </div>
+                        <p class="text-gray-600" th:text="${product.description}">Product Description</p>
+                        <div class="mt-4 flex justify-end">
+                            <button onclick="openModal('${product.imageUrl}', '${product.name}', '${product.description}', '${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}')" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-4 py-6">
+        <p class="text-center">&copy; 2025 Product Dashboard. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Modal Structure -->
+<div id="productModal" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+    <div class="bg-white rounded-lg w-11/12 md:w-1/3 p-6">
+        <button id="closeModal" class="absolute top-3 right-3 text-gray-600 text-lg font-bold">X</button>
+        <div>
+            <img id="modalProductImage" class="w-full h-64 object-cover rounded-lg mb-4" alt="Product Image">
+        </div>
+        <h3 id="modalProductName" class="text-2xl font-semibold text-gray-800 mb-4">Product Name</h3>
+        <p id="modalProductDescription" class="text-gray-600 mb-4">Product Description</p>
+        <span id="modalProductPrice" class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">$0.00</span>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
